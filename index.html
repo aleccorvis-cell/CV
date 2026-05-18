@@ -6,6 +6,9 @@
     <title>Alexander Daniel Munz | Performance Marketing & KI</title>
     <meta name="description" content="Portfolio und Lebenslauf von Alexander Daniel Munz - Strategischer Performance Marketing Manager.">
     
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" id="silktide-consent-manager-css" href="https://cdn.jsdelivr.net/gh/silktide/consent-manager@v2.0.0/silktide-consent-manager.css" integrity="sha384-IO1E/jCrQXyH5rwcI0SXP7OXw47JFqQNDQcKhbFvqnL2IunBxxwE2Ne5XyAmCqKs" crossorigin="anonymous">
+
     <style>
         /* --- DESIGN & BRANDING --- */
         :root {
@@ -156,7 +159,7 @@
             font-size: 1rem;
         }
 
-        /* --- FOOTER & COOKIE BANNER --- */
+        /* --- FOOTER --- */
         footer {
             text-align: center;
             padding: 40px 0;
@@ -168,57 +171,6 @@
 
         footer a {
             margin: 0 10px;
-        }
-
-        #cookie-banner {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            z-index: 1000;
-            border: 1px solid var(--accent);
-        }
-
-        #cookie-banner p {
-            margin-right: 20px;
-            font-size: 0.9rem;
-        }
-
-        .btn {
-            background: var(--accent);
-            color: var(--bg-color);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: #0ea5e9;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        @media (max-width: 600px) {
-            #cookie-banner {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
-            }
-            #cookie-banner p {
-                margin-right: 0;
-            }
         }
     </style>
 </head>
@@ -347,26 +299,56 @@
         </footer>
     </div>
 
-    <div id="cookie-banner" class="hidden">
-        <p>Wir verwenden minimale Cookies, um die Funktion dieser Website zu gewährleisten. Weitere Details findest du in der <a href="https://alexandermunz.de/datenschutz" target="_blank" style="text-decoration: underline;">Datenschutzerklärung</a>.</p>
-        <button id="accept-cookies" class="btn">Verstanden</button>
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/gh/silktide/consent-manager@v2.0.0/silktide-consent-manager.js" integrity="sha384-j4NIMOecmtzMWe9GJADIIe5hTlHG63aiTQ/2XorW10RNyQJg+IU+xwFVDy45wBah" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const banner = document.getElementById('cookie-banner');
-            const acceptBtn = document.getElementById('accept-cookies');
-
-            // Prüfen, ob Zustimmung bereits im LocalStorage liegt
-            if (!localStorage.getItem('cookiesAccepted')) {
-                banner.classList.remove('hidden');
-            }
-
-            acceptBtn.addEventListener('click', function() {
-                localStorage.setItem('cookiesAccepted', 'true');
-                banner.classList.add('hidden');
-            });
-        });
+    window.silktideConsentManager.init({
+      backdrop: {
+        show: true
+      },
+      icon: {
+        position: "bottomLeft"
+      },
+      prompt: {
+        position: "bottomRight"
+      },
+      consentTypes: [
+        {
+          id: "essential",
+          label: "Essential",
+          description: "<p>These cookies are necessary for the website to function properly and cannot be switched off. They help with things like logging in and setting your privacy preferences.</p>",
+          required: true,
+          onAccept: function() {
+            console.log('Add logic for the required Essential consent type here');
+          }
+        },
+        {
+          id: "analytics",
+          label: "Analytics",
+          description: "<p>These cookies help us improve the site by tracking which pages are most popular and how visitors move around the site.</p>",
+          required: false,
+          gtag: "analytics_storage"
+        }
+      ],
+      text: {
+        prompt: {
+          description: "<p>We use cookies on our site to enhance your user experience, provide personalized content, and analyze our traffic.</p>",
+          acceptAllButtonText: "Accept all",
+          acceptAllButtonAccessibleLabel: "Accept all cookies",
+          rejectNonEssentialButtonText: "Reject non-essential",
+          rejectNonEssentialButtonAccessibleLabel: "Reject all non-essential cookies",
+          preferencesButtonText: "Preferences",
+          preferencesButtonAccessibleLabel: "Toggle preferences"
+        },
+        preferences: {
+          title: "Customize your cookie preferences",
+          description: "<p>We respect your right to privacy. You can choose not to allow some types of cookies. Your cookie preferences will apply across our website.</p>",
+          saveButtonText: "Save and close",
+          saveButtonAccessibleLabel: "Save your cookie preferences",
+          creditLinkText: "Get this banner for free",
+          creditLinkAccessibleLabel: "Get this banner for free"
+        }
+      }
+    });
     </script>
 </body>
 </html>
